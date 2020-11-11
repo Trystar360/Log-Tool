@@ -1,9 +1,7 @@
 import { Box, Paper, Typography } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import BookIcon from "@material-ui/icons/Book";
@@ -11,7 +9,6 @@ import MailIcon from "@material-ui/icons/Mail";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import clsx from "clsx";
 import React from "react";
-import theme from "../theme";
 
 const drawerWidth = 260;
 
@@ -40,9 +37,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '400',
     fontHeight: '30px',
     whitespace: 'nowrap',
-    textTransform: 'upercase'
+    textTransform: 'upercase',
+    color: 'inherit',
   },
   headingBox: {
+    color: 'inherit',
     margin: '0',
     display: 'block',
     padding: '15px 0',
@@ -52,19 +51,21 @@ const useStyles = makeStyles((theme) => ({
       width: 'calc(100% - 30px)',
       bottom: '0',
       height: '1px',
-      content: "",
+      content: '" "',
       position: 'absolute',
-      backgroundColor: "hsla(0,0%,100%,.3)"
+      backgroundColor: "hsla(0, 0%, 100%, 0.3)",
     }
   },
-    drawer: {
+  drawer: {
     width: drawerWidth,
     //height: "100%",
     flexShrink: 0,
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
+    zIndex: "4"
   },
   drawerPaper: {
-    boxShadow: theme.myShadows.drawer
+    color: 'inherit',
+    boxShadow: theme.myShadows.drawer,
   },
   drawerOpen: {
     width: drawerWidth,
@@ -102,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   drawerLIText: {
+    color: 'inherit',
     height: 'auto',
     margin: '0',
     display: 'block',
@@ -118,6 +120,8 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate3d(-25px, 0, 0)"
   },
   drawerLIPaper: {
+    color: 'inherit',
+    backgroundColor: 'transparent',
     width: "auto",
     margin: "10px 15px 0",
     display: "block",
@@ -144,10 +148,29 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.myPalette.action.hover
     }
   },
-  divider: {
-    position: "absolute",
-    width: `calc(100% - ${theme.spacing(4)}px)`,
-    right: theme.spacing(2)
+  drawerImage: {
+    backgroundImage: 'url("https://images.pexels.com/photos/1070345/pexels-photo-1070345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")',
+    zIndex: '-2',
+    left: '0',
+    top: '0',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    display: 'block',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    "&:after": {
+      content: '" "',
+      left: '0',
+      top: '0',
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      display: 'block',
+      zIndex: '-1',
+      backgroundColor: 'black',
+      opacity: '.8'
+    }
   }
 }));
 
@@ -157,9 +180,16 @@ export default function APP_DRAWER(props) {
   const setToOpen = () => (!stay ? change(true) : {});
   const setToClose = () => (!stay ? change(false) : {});
 
+  const [color, setColor] = React.useState({
+    color: 'white',
+    backgroundImage: 'https://images.pexels.com/photos/1070345/pexels-photo-1070345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+  })
   return (
+    
     <Drawer
+      color={color.color}
       variant="permanent"
+      zindex="4"
       className={clsx(classes.drawer, {
         [classes.drawerOpen]: open,
         [classes.drawerClose]: !open
@@ -176,34 +206,33 @@ export default function APP_DRAWER(props) {
       <div className={classes.toolbar}>
         <Box className={classes.headingBox}>
           <BookIcon className={classes.headingIcon}></BookIcon>
-          <Typography className={clsx(classes.headingText, {[classes.drawerLITextClosed] : !open})}>Log Tool</Typography>
+          <Typography className={clsx(classes.headingText, { [classes.drawerLITextClosed]: !open })}>Log Tool</Typography>
         </Box>
       </div>
-      <Box>
-        <Divider className={classes.divider} />
-      </Box>
-
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts","All mail", "Trash", "Spam"].map((text, index) => (
+        {["Inbox", "Starred", "Send email", "Drafts", "All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem
             key={text}
             disableGutters
             className={classes.drawerListItem}
           >
             <Paper elevation={0} className={classes.drawerLIPaper}>
-                {index % 2 === 0 ? <InboxIcon className={classes.drawerIcon} /> : <MailIcon className={classes.drawerIcon}/>}
+              {index % 2 === 0 ? <InboxIcon className={classes.drawerIcon} /> : <MailIcon className={classes.drawerIcon} />}
               <ListItemText
                 primaryTypographyProps={{
                   classes: {
-                    body1: clsx(classes.drawerLIText, {[classes.drawerLITextClosed] : !open})
+                    body1: clsx(classes.drawerLIText, { [classes.drawerLITextClosed]: !open })
                   }
                 }}
-                className={clsx(classes.drawerLIText, {[classes.drawerLITextClosed] : !open})}
+                className={clsx(classes.drawerLIText, { [classes.drawerLITextClosed]: !open })}
                 primary={text} />
             </Paper>
           </ListItem>
         ))}
       </List>
+      <div className={classes.drawerImage}>
+
+      </div>
     </Drawer>
   );
 }

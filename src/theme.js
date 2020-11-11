@@ -18,6 +18,11 @@ const theme = createMuiTheme({
       hover: "rgba(200, 200, 200, 0.2)"
     }
   },
+  palette: {
+    background: {
+        default: "#eee"
+    }
+  },
   myShadows: {
     button: {
       default:
