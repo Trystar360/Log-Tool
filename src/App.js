@@ -12,6 +12,7 @@ const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: theme.palette.background.default
   },
   appBar: {
     marginLeft: theme.spacing(10),
@@ -54,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
     })
   },
   pageTitle: {
-
+    color: theme.palette.primary.main,
+    fontSize: "30px"
   },
   hide: {
     display: "none"
@@ -117,7 +119,7 @@ export default function MiniDrawer() {
       ></APP_DRAWER>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <APP_HOME></APP_HOME>
+        <APP_HOME/>
       </main>
     </div>
   );
