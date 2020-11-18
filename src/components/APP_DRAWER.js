@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontHeight: '30px',
     whitespace: 'nowrap',
     textTransform: 'upercase',
-    //color: 'inherit',
+    color: 'inherit',
   },
   headingBox: {
     color: 'inherit',
@@ -61,8 +61,7 @@ const useStyles = makeStyles((theme) => ({
     //height: "100%",
     flexShrink: 0,
     whiteSpace: "nowrap",
-    zIndex: "4",
-    color: "#fff !important"
+    zIndex: "4"
   },
   drawerPaper: {
     color: 'inherit',
@@ -182,12 +181,13 @@ export default function APP_DRAWER(props) {
   const setToClose = () => (!stay ? change(false) : {});
 
   const [color, setColor] = React.useState({
-    color: '#fff',
+    color: 'white',
     backgroundImage: 'https://images.pexels.com/photos/1070345/pexels-photo-1070345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
   })
   return (
     
     <Drawer
+      color={color.color}
       variant="permanent"
       zindex="4"
       className={clsx(classes.drawer, {

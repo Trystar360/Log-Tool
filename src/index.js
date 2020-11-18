@@ -12,6 +12,7 @@ ReactDOM.render(
       <CssBaseline>
       <App />
       </CssBaseline>
+
     </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
