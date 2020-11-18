@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, CardActions, Paper, Button, Typography } from '@material-ui/core/';
 import { pink, blue } from '@material-ui/core/colors/';
 import ICON from './ICON.js'
-import {roundedIcon as Glyph} from '@glyphs/rounded'
 import '../mousePosition.js'
 import useMousePosition from '../mousePosition.js';
 import $ from "jquery"
@@ -112,7 +111,7 @@ export default function APP_HOME() {
                         md={3}
                         lg={2}>
                         <Paper className={classes.iconBox}>
-                            <Typography variant="h5" className={classes.cardTitle}><Glyph name="car"></Glyph></Typography>
+                            <Typography variant="h5" className={classes.cardTitle}><ICON name="car" variant="bold"/></Typography>
                         </Paper>
                     </Grid>
                 </Paper>
